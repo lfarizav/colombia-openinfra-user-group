@@ -1,0 +1,96 @@
+# ── Secrets & credentials ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.env
+secrets.json
+secrets.yaml
+secrets.yml
+config.local.*
+credentials.json
+credentials.yml
+service-account*.json
+*-service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_ed25519
+id_ecdsa
+*.pub
+.ssh/
+gcloud/
+kubeconfig
+.kube/
+
+# ── API keys / tokens (common patterns) ──────────────────────────────────────
+.netlify
+.vercel
+.firebase/
+firebase.json
+firebase-adminsdk*.json
+google-services.json
+GoogleService-Info.plist
+.clasp.json
+.gcloudignore
+
+# ── Node / npm ────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+dist/
+build/
+.cache/
+.parcel-cache/
+.vite/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.Python
+
+# ── OS / editors ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/settings.json
+.vscode/.ropeproject
+
+# ── Testing / CI artifacts ────────────────────────────────────────────────────
+test-results/
+playwright-report/
+coverage/
+.nyc_output/
+*.lcov
+
+# ── Lighthouse / QA ──────────────────────────────────────────────────────────
+lighthouse-report*.html
+lighthouse-report*.json
+screenshots/
+
+# ── Local overrides ───────────────────────────────────────────────────────────
+*.local
+*.local.*
+local.*

@@ -1,0 +1,11 @@
+{
+  "name": "colombia-openinfra-user-group",
+  "private": true,
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}
