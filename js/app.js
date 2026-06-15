@@ -66,7 +66,10 @@ const STRINGS = {
   },
   sponsors: {
     eyebrow:  { es: "Patrocinadores", en: "Sponsors" },
-    title:    { es: "Con el apoyo de", en: "Supported by" }
+    title:    { es: "Con el apoyo de", en: "Supported by" },
+    cta_title: { es: "¿Tu empresa quiere patrocinar?", en: "Want your company to sponsor?" },
+    cta_sub:   { es: "Los patrocinadores financian la sede, el catering y los materiales para 375+ profesionales de infraestructura abierta en Colombia. Tu logo aparece aquí y en cada evento.", en: "Sponsors fund the venue, catering and materials for 375+ open infrastructure professionals in Colombia. Your logo appears here and at every event." },
+    cta_btn:   { es: "Escríbenos", en: "Contact us" }
   },
   people: {
     eyebrow:    { es: "Directorio",          en: "Directory" },
@@ -1342,6 +1345,34 @@ function Sponsors({ lang }) {
             }, bi(s.role, lang))
           )
         )
+      ),
+      React.createElement("div", {
+        style: {
+          marginTop: "3rem", padding: "2rem 2.5rem",
+          background: "var(--surface)", border: "1px dashed var(--border)",
+          borderRadius: "var(--radius-lg)", maxWidth: 600, marginLeft: "auto", marginRight: "auto",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"
+        }
+      },
+        React.createElement(Icon, { name: "k8s", size: 32, color: "#F7B749" }),
+        React.createElement("h3", {
+          style: { fontFamily: "var(--font-head)", fontSize: "1.2rem", color: "var(--text)", margin: 0 }
+        }, t("sponsors.cta_title", lang)),
+        React.createElement("p", {
+          style: { color: "var(--text-mid)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0, textAlign: "center" }
+        }, t("sponsors.cta_sub", lang)),
+        React.createElement("a", {
+          href: "mailto:colombia-openinfra@googlegroups.com?subject=Sponsorship%20Colombia%20OpenInfra%20User%20Group",
+          style: {
+            display: "inline-block", padding: "0.65rem 1.75rem",
+            background: "#F7B749", color: "#0a0a0a",
+            borderRadius: "var(--radius-sm)", fontWeight: 700, fontFamily: "var(--font-head)",
+            textDecoration: "none", fontSize: "0.9rem",
+            transition: "opacity 0.2s"
+          },
+          onMouseOver: e => { e.currentTarget.style.opacity = "0.85"; },
+          onMouseOut:  e => { e.currentTarget.style.opacity = "1"; }
+        }, t("sponsors.cta_btn", lang))
       )
     )
   );
