@@ -716,6 +716,21 @@ window.SITE = {
       "featured": false
     },
     {
+      "id": 51,
+      "role": "volunteer",
+      "name": "Johan Gabriel Quiroga Rodríguez",
+      "bio": {},
+      "company": "Geosystem/Trimble",
+      "titleJob": null,
+      "photoUrl": "assets/speakers/johan-quiroga.jpg",
+      "linkedinUrl": "https://www.linkedin.com/in/johan-gabriel-quiroga-rodr%C3%ADguez/",
+      "githubUrl": null,
+      "twitterUrl": null,
+      "websiteUrl": null,
+      "talks": [],
+      "featured": false
+    },
+    {
       "id": 48,
       "role": "volunteer",
       "name": "Saúl Andrés Menjura Ovalle",
