@@ -1064,7 +1064,85 @@ function People({ lang }) {
                 )
               );
             })
+          ),
+
+      /* ── Site Health ── */
+      (() => {
+        const sh = S.siteHealth;
+        if (!sh || (!sh.desktop.performance && !sh.mobile.performance)) return null;
+        const scoreColor = s => s >= 90 ? "#43B85C" : s >= 50 ? "#F7B749" : "#ED362F";
+        const ScoreRing = ({ score, label }) => React.createElement("div", {
+          style: { display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem" }
+        },
+          React.createElement("div", {
+            style: {
+              width: 52, height: 52, borderRadius: "50%",
+              border: `3px solid ${scoreColor(score)}`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1rem",
+              color: scoreColor(score)
+            }
+          }, score),
+          React.createElement("div", { style: { fontSize: "0.68rem", color: "var(--text-dim)", textAlign: "center" } }, label)
+        );
+        const Panel = ({ title, data }) => data && Object.keys(data).length > 0
+          ? React.createElement("div", { style: { flex: 1 } },
+              React.createElement("p", {
+                style: { fontSize: "0.75rem", fontFamily: "var(--font-mono)", color: "var(--text-mid)", marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" }
+              }, title),
+              React.createElement("div", { style: { display: "flex", gap: "1rem", flexWrap: "wrap" } },
+                React.createElement(ScoreRing, { score: data.performance, label: lang === "es" ? "Rendimiento" : "Performance" }),
+                React.createElement(ScoreRing, { score: data.accessibility, label: lang === "es" ? "Accesibilidad" : "Accessibility" }),
+                React.createElement(ScoreRing, { score: data.bestPractices, label: lang === "es" ? "Buenas prácticas" : "Best Practices" }),
+                React.createElement(ScoreRing, { score: data.seo, label: "SEO" })
+              ),
+              React.createElement("div", {
+                style: { display: "flex", gap: "1.25rem", marginTop: "0.75rem", flexWrap: "wrap" }
+              },
+                ["fcp", "lcp", "tbt", "cls"].map(k => data[k]
+                  ? React.createElement("span", { key: k, style: { fontSize: "0.75rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" } },
+                      React.createElement("span", { style: { color: "var(--text-mid)" } }, k.toUpperCase()), " ", data[k])
+                  : null
+                )
+              )
+            )
+          : null;
+        return React.createElement("div", {
+          style: {
+            marginTop: "3rem", padding: "1.5rem",
+            background: "var(--surface)", border: "1px solid var(--border)",
+            borderRadius: "var(--radius-md)", borderLeft: "3px solid #2CB4E2"
+          }
+        },
+          React.createElement("div", {
+            style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.25rem" }
+          },
+            React.createElement("p", {
+              style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "0.95rem", color: "#2CB4E2", margin: 0 }
+            }, lang === "es" ? "🩺 Salud del sitio" : "🩺 Site Health"),
+            sh.updated && React.createElement("span", {
+              style: { fontSize: "0.75rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }
+            }, lang === "es" ? "Actualizado: " : "Updated: ", sh.updated)
+          ),
+          React.createElement("div", { style: { display: "flex", gap: "2.5rem", flexWrap: "wrap" } },
+            React.createElement(Panel, { title: "Desktop", data: sh.desktop }),
+            React.createElement(Panel, { title: "Mobile", data: sh.mobile })
+          ),
+          sh.ux && React.createElement("div", {
+            style: { marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "0.75rem" }
+          },
+            React.createElement("div", {
+              style: {
+                fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.1rem",
+                color: scoreColor(sh.ux.score)
+              }
+            }, sh.ux.passed, "/", sh.ux.total),
+            React.createElement("div", { style: { fontSize: "0.82rem", color: "var(--text-mid)" } },
+              lang === "es" ? "controles de calidad UX superados" : "UX quality checks passed"
+            )
           )
+        );
+      })()
     )
   );
 }
