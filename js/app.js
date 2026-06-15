@@ -661,17 +661,25 @@ function Speakers({ lang }) {
             onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
             onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
           },
-            /* Avatar initials */
-            React.createElement("div", {
-              style: {
-                width: 48, height: 48, borderRadius: "50%",
-                background: colors[i % colors.length] + "22",
-                border: `2px solid ${colors[i % colors.length]}`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.1rem",
-                color: colors[i % colors.length], marginBottom: "1rem"
-              }
-            }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
+            /* Avatar: real photo if available, initials otherwise */
+            speaker.photoUrl
+              ? React.createElement("img", {
+                  src: speaker.photoUrl, alt: speaker.name,
+                  style: {
+                    width: 64, height: 64, borderRadius: "50%", objectFit: "cover",
+                    border: `2px solid ${colors[i % colors.length]}`, marginBottom: "1rem", display: "block"
+                  }
+                })
+              : React.createElement("div", {
+                  style: {
+                    width: 64, height: 64, borderRadius: "50%",
+                    background: colors[i % colors.length] + "22",
+                    border: `2px solid ${colors[i % colors.length]}`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.1rem",
+                    color: colors[i % colors.length], marginBottom: "1rem"
+                  }
+                }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
             React.createElement("p", {
               style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "1rem", marginBottom: "0.25rem" }
             }, speaker.name),
