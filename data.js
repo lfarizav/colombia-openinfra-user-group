@@ -386,7 +386,7 @@ window.SITE = {
             "es": "Computación en la nube y soberanía de datos"
           },
           "slidesUrl": null,
-          "photoUrl": null
+          "photoUrl": "assets/speakers/alvaro-soto.jpg"
         },
         {
           "name": "Kendall Nelson",
@@ -467,7 +467,7 @@ window.SITE = {
             "es": "Micronube de LXD y MAAS: Alternativa a OpenStack en el borde"
           },
           "slidesUrl": null,
-          "photoUrl": null
+          "photoUrl": "assets/speakers/juan-pablo-norena.jpg"
         },
         {
           "name": "Alvaro Soto",
@@ -477,7 +477,7 @@ window.SITE = {
             "es": "Tailoring LOKI for Telcos"
           },
           "slidesUrl": null,
-          "photoUrl": null
+          "photoUrl": "assets/speakers/alvaro-soto.jpg"
         },
         {
           "name": "Cesar Perez",
