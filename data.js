@@ -29,6 +29,7 @@ window.SITE = {
     {
       "name": "Pontificia Universidad Javeriana",
       "url": "https://www.javeriana.edu.co",
+      "logoUrl": "assets/logos/javeriana.png",
       "role": {
         "es": "Sede y Patrocinador Principal",
         "en": "Venue & Principal Sponsor"
@@ -37,9 +38,37 @@ window.SITE = {
     {
       "name": "OpenInfra Foundation",
       "url": "https://openinfra.dev",
+      "logoUrl": "assets/logos/openinfra.svg",
       "role": {
         "es": "Fundación Organizadora",
         "en": "Organizing Foundation"
+      }
+    },
+    {
+      "name": "Whitestack",
+      "url": "https://whitestack.com",
+      "logoUrl": "assets/logos/whitestack.png",
+      "role": {
+        "es": "Patrocinador",
+        "en": "Sponsor"
+      }
+    },
+    {
+      "name": "Cuemby",
+      "url": "https://cuemby.com",
+      "logoUrl": "assets/logos/cuemby-wordmark.svg",
+      "role": {
+        "es": "Patrocinador",
+        "en": "Sponsor"
+      }
+    },
+    {
+      "name": "The Flock Co",
+      "url": "https://theflockco.com",
+      "logoUrl": "assets/logos/theflock.png",
+      "role": {
+        "es": "Patrocinador",
+        "en": "Sponsor"
       }
     }
   ],
