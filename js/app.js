@@ -629,9 +629,10 @@ function Events({ lang }) {
 function Speakers({ lang }) {
   const ref = useRef(null);
   const visible = useIntersection(ref);
-  const latestEvent = S.events.filter(e => !e.upcoming).sort((a, b) => b.date.localeCompare(a.date))[0];
-  const speakers = latestEvent?.speakers || [];
-  const colors = ["#ED362F","#43B85C","#2CB4E2","#F7B749","#ED362F","#43B85C"];
+  const colors = ["#ED362F","#43B85C","#2CB4E2","#F7B749","#ED362F","#43B85C","#ED362F"];
+  const pastEvents = S.events.filter(e => !e.upcoming)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .filter(e => e.speakers && e.speakers.length > 0);
 
   return React.createElement("section", {
     id: "speakers",
@@ -646,61 +647,109 @@ function Speakers({ lang }) {
     React.createElement("div", { className: "container" },
       React.createElement("p", { className: "section-eyebrow" }, t("speakers.eyebrow", lang)),
       React.createElement("h2", { className: "section-title" }, t("speakers.title", lang)),
-      React.createElement("div", {
-        style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }
-      },
-        ...speakers.map((speaker, i) =>
+
+      ...pastEvents.map(evt => {
+        const d = new Date(evt.date);
+        const dateStr = d.toLocaleDateString(lang === "es" ? "es-CO" : "en-US", { year: "numeric", month: "long", day: "numeric" });
+        return React.createElement("div", {
+          key: evt.id,
+          style: { marginBottom: "3rem" }
+        },
+          /* Event header */
           React.createElement("div", {
-            key: speaker.name,
             style: {
-              background: "var(--surface)", border: "1px solid var(--border)",
-              borderRadius: "var(--radius-md)", padding: "1.5rem",
-              borderLeft: `3px solid ${colors[i % colors.length]}`,
-              transition: "transform 0.2s, box-shadow 0.2s"
-            },
-            onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
-            onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
+              display: "flex", alignItems: "center", gap: "1rem",
+              marginBottom: "1.5rem", paddingBottom: "0.75rem",
+              borderBottom: "2px solid var(--border)"
+            }
           },
-            /* Avatar: real photo if available, initials otherwise */
-            speaker.photoUrl
-              ? React.createElement("img", {
-                  src: speaker.photoUrl, alt: speaker.name,
-                  style: {
-                    width: 64, height: 64, borderRadius: "50%", objectFit: "cover",
-                    border: `2px solid ${colors[i % colors.length]}`, marginBottom: "1rem", display: "block"
-                  }
-                })
-              : React.createElement("div", {
-                  style: {
-                    width: 64, height: 64, borderRadius: "50%",
-                    background: colors[i % colors.length] + "22",
-                    border: `2px solid ${colors[i % colors.length]}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.1rem",
-                    color: colors[i % colors.length], marginBottom: "1rem"
-                  }
-                }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
-            React.createElement("p", {
-              style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "1rem", marginBottom: "0.25rem" }
-            }, speaker.name),
-            speaker.affiliation && React.createElement("p", {
-              style: { color: "var(--text-dim)", fontSize: "0.8rem", fontFamily: "var(--font-mono)", marginBottom: "0.75rem" }
-            }, speaker.affiliation),
-            React.createElement("p", {
-              style: { color: "var(--text-mid)", fontSize: "0.88rem", lineHeight: 1.5, marginBottom: "1rem" }
-            }, bi(speaker.talk, lang)),
-            speaker.slidesUrl && React.createElement("a", {
-              href: speaker.slidesUrl, target: "_blank", rel: "noopener noreferrer",
+            evt.photoUrl && React.createElement("img", {
+              src: evt.photoUrl, alt: bi(evt.title, lang),
               style: {
-                display: "inline-flex", alignItems: "center", gap: "0.4rem",
-                fontSize: "0.82rem", color: colors[i % colors.length],
-                textDecoration: "none", fontWeight: 600,
-                fontFamily: "var(--font-mono)"
+                width: 72, height: 48, objectFit: "cover",
+                borderRadius: "var(--radius-sm)", flexShrink: 0,
+                border: "1px solid var(--border)"
               }
-            }, React.createElement(Icon, { name: "download", size: 14, color: colors[i % colors.length] }), t("speakers.slides", lang))
+            }),
+            React.createElement("div", null,
+              React.createElement("h3", {
+                style: {
+                  fontFamily: "var(--font-head)", fontWeight: 700,
+                  fontSize: "1.1rem", color: "var(--text)", marginBottom: "0.2rem"
+                }
+              }, bi(evt.title, lang)),
+              React.createElement("span", {
+                style: { fontSize: "0.8rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }
+              }, dateStr,
+                evt.attendees ? ` · ${evt.attendees} ${t("events.attendees", lang)}` : "")
+            )
+          ),
+
+          /* Speaker cards grid */
+          React.createElement("div", {
+            style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }
+          },
+            ...evt.speakers.map((speaker, i) =>
+              React.createElement("div", {
+                key: speaker.name + evt.id,
+                style: {
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)", padding: "1.25rem",
+                  borderLeft: `3px solid ${colors[i % colors.length]}`,
+                  display: "flex", gap: "1rem", alignItems: "flex-start",
+                  transition: "transform 0.2s, box-shadow 0.2s"
+                },
+                onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
+                onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
+              },
+                /* Avatar */
+                speaker.photoUrl
+                  ? React.createElement("img", {
+                      src: speaker.photoUrl, alt: speaker.name,
+                      style: {
+                        width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
+                        border: `2px solid ${colors[i % colors.length]}`, flexShrink: 0
+                      }
+                    })
+                  : React.createElement("div", {
+                      style: {
+                        width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
+                        background: colors[i % colors.length] + "22",
+                        border: `2px solid ${colors[i % colors.length]}`,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1rem",
+                        color: colors[i % colors.length]
+                      }
+                    }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
+                /* Text */
+                React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+                  React.createElement("p", {
+                    style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "0.95rem", marginBottom: "0.2rem" }
+                  }, speaker.name),
+                  speaker.affiliation && React.createElement("p", {
+                    style: { color: "var(--text-dim)", fontSize: "0.75rem", fontFamily: "var(--font-mono)", marginBottom: "0.5rem" }
+                  }, speaker.affiliation),
+                  React.createElement("p", {
+                    style: {
+                      color: colors[i % colors.length], fontSize: "0.82rem",
+                      lineHeight: 1.45, fontStyle: "italic"
+                    }
+                  }, bi(speaker.talk, lang)),
+                  speaker.slidesUrl && React.createElement("a", {
+                    href: speaker.slidesUrl, target: "_blank", rel: "noopener noreferrer",
+                    style: {
+                      display: "inline-flex", alignItems: "center", gap: "0.35rem",
+                      fontSize: "0.78rem", color: colors[i % colors.length],
+                      textDecoration: "none", fontWeight: 600,
+                      fontFamily: "var(--font-mono)", marginTop: "0.5rem"
+                    }
+                  }, React.createElement(Icon, { name: "download", size: 12, color: colors[i % colors.length] }), t("speakers.slides", lang))
+                )
+              )
+            )
           )
-        )
-      )
+        );
+      })
     )
   );
 }
@@ -936,22 +985,22 @@ function Agents({ lang }) {
       desc: { es: "Programa, escala y monitoriza las cargas de trabajo de los agentes en clústeres híbridos.", en: "Schedule, scale, and health-monitor agent workloads across hybrid clusters." }
     },
     {
-      icon: "cpu", logo: "assets/logos/openstack.svg", color: "#ED362F",
+      icon: "cpu", logo: "assets/logos/openstack-official.svg", color: "#ED362F",
       name: { es: "OpenStack — Cómputo", en: "OpenStack — Compute" },
       desc: { es: "Recursos de CPU/GPU declarativos para entrenamiento e inferencia distribuida a escala cloud.", en: "Declarative CPU/GPU resources for distributed training and inference at cloud scale." }
     },
     {
-      icon: "shield", logo: "assets/logos/kata.png", color: "#ED362F",
+      icon: "shield", logo: "assets/logos/kata.svg", color: "#ED362F",
       name: { es: "Kata Containers — Sandbox Seguro", en: "Kata Containers — Secure Sandbox" },
       desc: { es: "Aislamiento a nivel VM para código generado por agentes — sin compartir kernel.", en: "VM-level isolation for agent-generated code execution — no shared kernel." }
     },
     {
-      icon: "branch", logo: "assets/logos/zuul.png", color: "#43B85C",
+      icon: "branch", logo: "assets/logos/zuul.svg", color: "#43B85C",
       name: { es: "Zuul — CI/CD para ML", en: "Zuul — CI/CD for ML" },
       desc: { es: "Pipelines de prueba multi-nodo y gating para código generado por agentes y experimentos de ML.", en: "Multi-node test pipelines and gating for agent-generated code and ML experiments." }
     },
     {
-      icon: "network", logo: "assets/logos/starlingx.svg", color: "#2CB4E2",
+      icon: "network", logo: "assets/logos/starlingx-official.svg", color: "#2CB4E2",
       name: { es: "StarlingX — Edge AI", en: "StarlingX — Edge AI" },
       desc: { es: "Inferencia de ultra-baja latencia en hardware de borde, estaciones 5G e IoT industrial.", en: "Ultra-low-latency inference on edge hardware, 5G base stations, and industrial IoT." }
     }
