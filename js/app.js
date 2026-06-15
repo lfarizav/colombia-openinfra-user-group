@@ -20,8 +20,8 @@ const STRINGS = {
     eyebrow:  { es: "Comunidad · Bogotá · Colombia", en: "Community · Bogotá · Colombia" },
     headline1:{ es: "Infraestructura abierta",        en: "Open infrastructure" },
     headline2:{ es: "para Colombia",                  en: "for Colombia" },
-    sub:      { es: "Más de 375 miembros colaborando en OpenStack, Kubernetes, cloud-native y tecnologías de infraestructura de código abierto.",
-                en: "Over 375 members collaborating on OpenStack, Kubernetes, cloud-native and open-source infrastructure technologies." },
+    sub:      { es: "Más de 376 miembros colaborando en OpenStack, Kubernetes, cloud-native y tecnologías de infraestructura de código abierto.",
+                en: "Over 376 members collaborating on OpenStack, Kubernetes, cloud-native and open-source infrastructure technologies." },
     cta1:     { es: "Únete en Meetup",   en: "Join on Meetup" },
     cta2:     { es: "Ver eventos",       en: "See events" }
   },
@@ -59,8 +59,8 @@ const STRINGS = {
   join: {
     eyebrow:  { es: "Únete",         en: "Join" },
     title:    { es: "Haz parte de la comunidad", en: "Be part of the community" },
-    sub:      { es: "Regístrate en Meetup para recibir notificaciones de eventos y conectarte con más de 375 profesionales de infraestructura abierta en Colombia.",
-                en: "Join on Meetup to receive event notifications and connect with over 375 open infrastructure professionals in Colombia." },
+    sub:      { es: "Regístrate en Meetup para recibir notificaciones de eventos y conectarte con más de 376 profesionales de infraestructura abierta en Colombia.",
+                en: "Join on Meetup to receive event notifications and connect with over 376 open infrastructure professionals in Colombia." },
     meetup:   { es: "Unirme en Meetup",     en: "Join on Meetup" },
     chat:     { es: "Canal de comunidad",   en: "Community channel" }
   },
@@ -68,7 +68,7 @@ const STRINGS = {
     eyebrow:  { es: "Patrocinadores", en: "Sponsors" },
     title:    { es: "Con el apoyo de", en: "Supported by" },
     cta_title: { es: "¿Tu empresa quiere patrocinar?", en: "Want your company to sponsor?" },
-    cta_sub:   { es: "Los patrocinadores financian la sede, el catering y los materiales para 375+ profesionales de infraestructura abierta en Colombia. Tu logo aparece aquí y en cada evento.", en: "Sponsors fund the venue, catering and materials for 375+ open infrastructure professionals in Colombia. Your logo appears here and at every event." },
+    cta_sub:   { es: "Los patrocinadores financian la sede, el catering y los materiales para 376+ profesionales de infraestructura abierta en Colombia. Tu logo aparece aquí y en cada evento.", en: "Sponsors fund the venue, catering and materials for 376+ open infrastructure professionals in Colombia. Your logo appears here and at every event." },
     cta_btn:   { es: "Escríbenos por WhatsApp", en: "Message us on WhatsApp" }
   },
   people: {
@@ -82,7 +82,7 @@ const STRINGS = {
     sponsor:    { es: "Patrocinadores",      en: "Sponsors" },
     mentor:     { es: "Mentores",            en: "Mentors" },
     empty:        { es: "No hay perfiles en esta categoría.", en: "No profiles in this category." },
-    meetup_note:  { es: "La lista completa de 375+ miembros está en nuestro grupo de Meetup (privada por diseño de la plataforma). Aquí mostramos a quienes han optado por aparecer públicamente.", en: "The full list of 375+ members lives on our Meetup group (private by platform design). Here we show members who have opted in to be featured." },
+    meetup_note:  { es: "La lista completa de 376+ miembros está en nuestro grupo de Meetup (privada por diseño de la plataforma). Aquí mostramos a quienes han optado por aparecer públicamente.", en: "The full list of 376+ members lives on our Meetup group (private by platform design). Here we show members who have opted in to be featured." },
     view_meetup:  { es: "Ver todos en Meetup", en: "View all on Meetup" },
     count_title:  { es: "Miembros de la comunidad", en: "Community members" },
     featured_label: { es: "Miembros destacados", en: "Featured members" }

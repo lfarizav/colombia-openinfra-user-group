@@ -7,7 +7,7 @@ window.SITE = {
       "en": "Open community for the collaboration and exploration of open infrastructure in Colombia."
     },
     "founded": "2022",
-    "members": 375,
+    "members": 376,
     "city": "Bogotá",
     "country": "Colombia",
     "countryCode": "CO",
