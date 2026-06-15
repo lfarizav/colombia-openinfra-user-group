@@ -629,127 +629,225 @@ function Events({ lang }) {
 function Speakers({ lang }) {
   const ref = useRef(null);
   const visible = useIntersection(ref);
-  const colors = ["#ED362F","#43B85C","#2CB4E2","#F7B749","#ED362F","#43B85C","#ED362F"];
-  const pastEvents = S.events.filter(e => !e.upcoming)
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .filter(e => e.speakers && e.speakers.length > 0);
+  const colors = ["#ED362F","#43B85C","#2CB4E2","#F7B749","#ED362F","#43B85C","#2CB4E2"];
+
+  const pastEvents = S.events
+    .filter(e => !e.upcoming && e.speakers && e.speakers.length > 0)
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const [idx, setIdx] = useState(0);
+  const [dir, setDir]  = useState(0);   // -1 = going left, 1 = going right
+  const [anim, setAnim] = useState(false);
+
+  const goTo = useCallback((next) => {
+    if (anim) return;
+    setDir(next > idx ? 1 : -1);
+    setAnim(true);
+    setTimeout(() => {
+      setIdx(next);
+      setDir(0);
+      setAnim(false);
+    }, 320);
+  }, [idx, anim]);
+
+  const prev = () => goTo(idx === 0 ? pastEvents.length - 1 : idx - 1);
+  const next = () => goTo(idx === pastEvents.length - 1 ? 0 : idx + 1);
+
+  const evt = pastEvents[idx];
+  if (!evt) return null;
+
+  const d = new Date(evt.date);
+  const dateStr = d.toLocaleDateString(lang === "es" ? "es-CO" : "en-US",
+    { year: "numeric", month: "long", day: "numeric" });
+
+  const slideStyle = {
+    opacity: anim ? 0 : 1,
+    transform: anim
+      ? `translateX(${dir > 0 ? "-60px" : "60px"})`
+      : "translateX(0)",
+    transition: "opacity 0.3s ease, transform 0.3s ease"
+  };
+
+  const ArrowBtn = ({ onClick, children }) =>
+    React.createElement("button", {
+      onClick,
+      style: {
+        background: "var(--surface)", border: "1px solid var(--border)",
+        borderRadius: "50%", width: 44, height: 44,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        cursor: "pointer", color: "var(--text)", flexShrink: 0,
+        transition: "background 0.2s, border-color 0.2s",
+        fontSize: "1.2rem", fontWeight: 700, lineHeight: 1
+      },
+      onMouseOver: e => { e.currentTarget.style.background = "var(--accent,#00D9FF)22"; e.currentTarget.style.borderColor = "var(--accent,#00D9FF)"; },
+      onMouseOut:  e => { e.currentTarget.style.background = "var(--surface)"; e.currentTarget.style.borderColor = "var(--border)"; }
+    }, children);
 
   return React.createElement("section", {
-    id: "speakers",
-    ref,
+    id: "speakers", ref,
     style: {
       background: "var(--bg-2)",
       opacity: visible ? 1 : 0,
       transform: visible ? "none" : "translateY(24px)",
-      transition: "opacity 0.6s ease, transform 0.6s ease"
+      transition: "opacity 0.6s ease, transform 0.6s ease",
+      overflow: "hidden"
     }
   },
     React.createElement("div", { className: "container" },
+
+      /* Section header */
       React.createElement("p", { className: "section-eyebrow" }, t("speakers.eyebrow", lang)),
       React.createElement("h2", { className: "section-title" }, t("speakers.title", lang)),
 
-      ...pastEvents.map(evt => {
-        const d = new Date(evt.date);
-        const dateStr = d.toLocaleDateString(lang === "es" ? "es-CO" : "en-US", { year: "numeric", month: "long", day: "numeric" });
-        return React.createElement("div", {
-          key: evt.id,
-          style: { marginBottom: "3rem" }
-        },
-          /* Event header */
-          React.createElement("div", {
-            style: {
-              display: "flex", alignItems: "center", gap: "1rem",
-              marginBottom: "1.5rem", paddingBottom: "0.75rem",
-              borderBottom: "2px solid var(--border)"
-            }
-          },
-            evt.photoUrl && React.createElement("img", {
-              src: evt.photoUrl, alt: bi(evt.title, lang),
-              style: {
-                width: 72, height: 48, objectFit: "cover",
-                borderRadius: "var(--radius-sm)", flexShrink: 0,
-                border: "1px solid var(--border)"
-              }
-            }),
-            React.createElement("div", null,
-              React.createElement("h3", {
-                style: {
-                  fontFamily: "var(--font-head)", fontWeight: 700,
-                  fontSize: "1.1rem", color: "var(--text)", marginBottom: "0.2rem"
-                }
-              }, bi(evt.title, lang)),
-              React.createElement("span", {
-                style: { fontSize: "0.8rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }
-              }, dateStr,
-                evt.attendees ? ` · ${evt.attendees} ${t("events.attendees", lang)}` : "")
-            )
-          ),
+      /* Navigation bar */
+      React.createElement("div", {
+        style: {
+          display: "flex", alignItems: "center", gap: "1rem",
+          marginBottom: "2rem", flexWrap: "wrap"
+        }
+      },
+        React.createElement(ArrowBtn, { onClick: prev }, "←"),
 
-          /* Speaker cards grid */
-          React.createElement("div", {
-            style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }
-          },
-            ...evt.speakers.map((speaker, i) =>
-              React.createElement("div", {
-                key: speaker.name + evt.id,
-                style: {
-                  background: "var(--surface)", border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)", padding: "1.25rem",
-                  borderLeft: `3px solid ${colors[i % colors.length]}`,
-                  display: "flex", gap: "1rem", alignItems: "flex-start",
-                  transition: "transform 0.2s, box-shadow 0.2s"
-                },
-                onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
-                onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
+        /* Event selector dots */
+        React.createElement("div", {
+          style: { display: "flex", gap: "0.5rem", flex: 1, flexWrap: "wrap", alignItems: "center" }
+        },
+          ...pastEvents.map((e, i) =>
+            React.createElement("button", {
+              key: e.id,
+              onClick: () => goTo(i),
+              title: bi(e.title, lang),
+              style: {
+                width: i === idx ? 28 : 10, height: 10,
+                borderRadius: 5, border: "none", cursor: "pointer", padding: 0,
+                background: i === idx ? "var(--accent,#00D9FF)" : "var(--border)",
+                transition: "width 0.3s ease, background 0.3s ease"
+              }
+            })
+          )
+        ),
+
+        React.createElement(ArrowBtn, { onClick: next }, "→"),
+
+        /* Counter */
+        React.createElement("span", {
+          style: {
+            fontFamily: "var(--font-mono)", fontSize: "0.8rem",
+            color: "var(--text-dim)", whiteSpace: "nowrap"
+          }
+        }, `${idx + 1} / ${pastEvents.length}`)
+      ),
+
+      /* Animated slide */
+      React.createElement("div", { style: slideStyle },
+
+        /* Event header card */
+        React.createElement("div", {
+          style: {
+            display: "flex", gap: "1.25rem", alignItems: "center",
+            background: "var(--surface)", border: "1px solid var(--border)",
+            borderRadius: "var(--radius-lg)", padding: "1.25rem",
+            marginBottom: "1.5rem", overflow: "hidden"
+          }
+        },
+          evt.photoUrl && React.createElement("img", {
+            src: evt.photoUrl, alt: bi(evt.title, lang),
+            style: {
+              width: 120, height: 80, objectFit: "cover",
+              borderRadius: "var(--radius-md)", flexShrink: 0,
+              border: "1px solid var(--border)"
+            }
+          }),
+          React.createElement("div", null,
+            React.createElement("h3", {
+              style: {
+                fontFamily: "var(--font-head)", fontWeight: 700,
+                fontSize: "1.15rem", color: "var(--text)", marginBottom: "0.3rem"
+              }
+            }, bi(evt.title, lang)),
+            React.createElement("span", {
+              style: { fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--text-dim)" }
+            }, dateStr,
+              evt.attendees ? ` · ${evt.attendees} ${t("events.attendees", lang)}` : ""),
+            evt.venue && React.createElement("p", {
+              style: { fontSize: "0.8rem", color: "var(--text-dim)", marginTop: "0.25rem" }
+            }, evt.venue)
+          )
+        ),
+
+        /* Speaker grid */
+        React.createElement("div", {
+          style: {
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+            gap: "1rem"
+          }
+        },
+          ...evt.speakers.map((speaker, i) =>
+            React.createElement("div", {
+              key: speaker.name,
+              style: {
+                background: "var(--surface)", border: "1px solid var(--border)",
+                borderRadius: "var(--radius-md)", padding: "1.1rem",
+                borderLeft: `3px solid ${colors[i % colors.length]}`,
+                display: "flex", gap: "0.9rem", alignItems: "flex-start",
+                transition: "transform 0.2s, box-shadow 0.2s"
               },
-                /* Avatar */
-                speaker.photoUrl
-                  ? React.createElement("img", {
-                      src: speaker.photoUrl, alt: speaker.name,
-                      style: {
-                        width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
-                        border: `2px solid ${colors[i % colors.length]}`, flexShrink: 0
-                      }
-                    })
-                  : React.createElement("div", {
-                      style: {
-                        width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
-                        background: colors[i % colors.length] + "22",
-                        border: `2px solid ${colors[i % colors.length]}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1rem",
-                        color: colors[i % colors.length]
-                      }
-                    }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
-                /* Text */
-                React.createElement("div", { style: { flex: 1, minWidth: 0 } },
-                  React.createElement("p", {
-                    style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "0.95rem", marginBottom: "0.2rem" }
-                  }, speaker.name),
-                  speaker.affiliation && React.createElement("p", {
-                    style: { color: "var(--text-dim)", fontSize: "0.75rem", fontFamily: "var(--font-mono)", marginBottom: "0.5rem" }
-                  }, speaker.affiliation),
-                  React.createElement("p", {
+              onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
+              onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
+            },
+              speaker.photoUrl
+                ? React.createElement("img", {
+                    src: speaker.photoUrl, alt: speaker.name,
                     style: {
-                      color: colors[i % colors.length], fontSize: "0.82rem",
-                      lineHeight: 1.45, fontStyle: "italic"
+                      width: 52, height: 52, borderRadius: "50%",
+                      objectFit: "cover", flexShrink: 0,
+                      border: `2px solid ${colors[i % colors.length]}`
                     }
-                  }, bi(speaker.talk, lang)),
-                  speaker.slidesUrl && React.createElement("a", {
-                    href: speaker.slidesUrl, target: "_blank", rel: "noopener noreferrer",
+                  })
+                : React.createElement("div", {
                     style: {
-                      display: "inline-flex", alignItems: "center", gap: "0.35rem",
-                      fontSize: "0.78rem", color: colors[i % colors.length],
-                      textDecoration: "none", fontWeight: 600,
-                      fontFamily: "var(--font-mono)", marginTop: "0.5rem"
+                      width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
+                      background: colors[i % colors.length] + "22",
+                      border: `2px solid ${colors[i % colors.length]}`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontFamily: "var(--font-head)", fontWeight: 700,
+                      fontSize: "1rem", color: colors[i % colors.length]
                     }
-                  }, React.createElement(Icon, { name: "download", size: 12, color: colors[i % colors.length] }), t("speakers.slides", lang))
-                )
+                  }, speaker.name.split(" ").map(n => n[0]).join("").slice(0, 2)),
+              React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+                React.createElement("p", {
+                  style: {
+                    fontFamily: "var(--font-head)", fontWeight: 600,
+                    fontSize: "0.92rem", marginBottom: "0.15rem"
+                  }
+                }, speaker.name),
+                speaker.affiliation && React.createElement("p", {
+                  style: {
+                    color: "var(--text-dim)", fontSize: "0.72rem",
+                    fontFamily: "var(--font-mono)", marginBottom: "0.45rem"
+                  }
+                }, speaker.affiliation),
+                React.createElement("p", {
+                  style: {
+                    color: colors[i % colors.length], fontSize: "0.8rem",
+                    lineHeight: 1.4, fontStyle: "italic"
+                  }
+                }, bi(speaker.talk, lang)),
+                speaker.slidesUrl && React.createElement("a", {
+                  href: speaker.slidesUrl, target: "_blank", rel: "noopener noreferrer",
+                  style: {
+                    display: "inline-flex", alignItems: "center", gap: "0.3rem",
+                    fontSize: "0.75rem", color: colors[i % colors.length],
+                    textDecoration: "none", fontWeight: 600,
+                    fontFamily: "var(--font-mono)", marginTop: "0.4rem"
+                  }
+                }, React.createElement(Icon, { name: "download", size: 11, color: colors[i % colors.length] }), t("speakers.slides", lang))
               )
             )
           )
-        );
-      })
+        )
+      )
     )
   );
 }
