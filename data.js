@@ -576,6 +576,24 @@ window.SITE = {
       "websiteUrl": null,
       "talks": [],
       "featured": true
+    },
+    {
+      "id": 2,
+      "role": "organizer",
+      "name": "Santiago Chacón",
+      "bio": {
+        "en": "",
+        "es": ""
+      },
+      "company": "Colombia OpenInfra User Group",
+      "titleJob": "Community Organizer",
+      "photoUrl": "assets/speakers/santiago-chacon.jpg",
+      "linkedinUrl": "https://www.linkedin.com/in/santiago-c-145ab111a/",
+      "githubUrl": null,
+      "twitterUrl": null,
+      "websiteUrl": "https://www.meetup.com/members/385895134/",
+      "talks": [],
+      "featured": true
     }
   ]
 };
