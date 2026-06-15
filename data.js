@@ -615,7 +615,7 @@ window.SITE = {
       "role": "volunteer",
       "name": "David Nieto",
       "bio": {},
-      "company": null,
+      "company": "Pontificia Universidad Javeriana",
       "titleJob": null,
       "photoUrl": null,
       "linkedinUrl": null,
