@@ -690,7 +690,7 @@ window.SITE = {
       "role": "volunteer",
       "name": "Salomón Alfredo Ávila",
       "bio": {},
-      "company": null,
+      "company": "Pontificia Universidad Javeriana",
       "titleJob": null,
       "photoUrl": "assets/speakers/salomon-avila.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/salomon-avila-271b49220/",
