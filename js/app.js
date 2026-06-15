@@ -523,13 +523,13 @@ function Events({ lang }) {
       onMouseOver: e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "var(--shadow-card)"; },
       onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = featured ? "var(--shadow-card)" : "none"; }
     },
-      /* Event image or color bar */
-      event.imageUrl
+      /* Event image or color bar — photoUrl (Meetup photo) takes priority over imageUrl (cover SVG) */
+      (event.photoUrl || event.imageUrl)
         ? React.createElement("a", {
             href: event.meetupUrl || "#", target: "_blank", rel: "noopener noreferrer",
             style: { display: "block", overflow: "hidden" }
           }, React.createElement("img", {
-            src: event.imageUrl, alt: bi(event.title, lang),
+            src: event.photoUrl || event.imageUrl, alt: bi(event.title, lang),
             style: { width: "100%", height: featured ? "220px" : "160px", objectFit: "cover", display: "block",
                      transition: "transform 0.3s", cursor: "pointer" },
             onMouseOver: e => { e.currentTarget.style.transform = "scale(1.03)"; },

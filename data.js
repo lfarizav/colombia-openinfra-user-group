@@ -48,6 +48,7 @@ window.SITE = {
   "events": [
     {
       "id": "evt-5",
+      "photoUrl": "assets/events/evt-5.jpg",
       "number": 5,
       "title": {
         "en": "Fifth Colombia OpenInfra User Group Event",
@@ -71,7 +72,8 @@ window.SITE = {
             "en": "Kubernetes Seeds at Universidad Javeriana",
             "es": "Semillas de Kubernetes en la Universidad Javeriana"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/mariela-curiel.jpg"
         },
         {
           "name": "Luis Felipe Ariza Vesga",
@@ -80,7 +82,8 @@ window.SITE = {
             "en": "LTE and 5G cellular network automation using natural language and AI",
             "es": "Automatización de redes celulares LTE y 5G con lenguaje natural e IA"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/lfarizav.jpg"
         },
         {
           "name": "Daniel Gerardo Escamilla Montoya",
@@ -89,7 +92,8 @@ window.SITE = {
             "en": "Open Source as an innovation platform for telecoms",
             "es": "Open Source como plataforma de innovación para telecomunicaciones"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/daniel-escamilla.jpg"
         },
         {
           "name": "Fabian Humberto Herrera Santana",
@@ -98,7 +102,8 @@ window.SITE = {
             "en": "AI regulation applied to critical infrastructure and telecoms",
             "es": "Regulación de IA aplicada a infraestructuras críticas y telecomunicaciones"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/fabian-herrera.jpg"
         },
         {
           "name": "Nicolas Bayona",
@@ -107,7 +112,8 @@ window.SITE = {
             "en": "Kubernetes incident resolution using AI agents",
             "es": "Resolución de incidentes en Kubernetes con agentes de IA"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/nclsbayona.jpg"
         },
         {
           "name": "Jhonnatan Gil Chaves",
@@ -116,7 +122,8 @@ window.SITE = {
             "en": "High-performance eBPF observability for cloud-native and telecom environments",
             "es": "Observabilidad de alto rendimiento con eBPF para entornos cloud-native y telecom"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/jhonnatan-gil.jpg"
         },
         {
           "name": "Gabriel Andrés Alzate Acuña",
@@ -125,7 +132,8 @@ window.SITE = {
             "en": "Infrastructure cost optimisation with AI, automation and open source",
             "es": "Optimización de costos de infraestructura con IA, automatización y software abierto"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/gabriel-alzate.jpg"
         }
       ]
     },
@@ -154,7 +162,8 @@ window.SITE = {
             "en": "Deploying Telco functions on Kubernetes with Multus CNI",
             "es": "Desplegando funciones Telco en Kubernetes con Multus CNI"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/danilo-granados.jpg"
         },
         {
           "name": "Luis Felipe Ariza Vesga",
@@ -163,7 +172,8 @@ window.SITE = {
             "en": "Enhancing Stability and Enabling Cloud-Native Capabilities for Private Cellular Networks",
             "es": "Mejorando la estabilidad y habilitando capacidades cloud-native para redes celulares privadas"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/lfarizav.jpg"
         },
         {
           "name": "Sergio Lopez",
@@ -172,7 +182,8 @@ window.SITE = {
             "en": "4G and 5G Network Deployment in Academia",
             "es": "Despliegue de Redes 4G y 5G en la academia"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/sergio-lopez.jpg"
         },
         {
           "name": "Juan Sebastian Clavijo",
@@ -181,9 +192,11 @@ window.SITE = {
             "en": "4G and 5G Network Deployment in Academia",
             "es": "Despliegue de Redes 4G y 5G en la academia"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         }
-      ]
+      ],
+      "photoUrl": "assets/events/evt-4.jpg"
     },
     {
       "id": "evt-87",
@@ -210,7 +223,8 @@ window.SITE = {
             "en": "Cloud-native technologies: field experiences",
             "es": "Tecnologías nativas en la nube: experiencias de campo"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/ivan-camargo.jpg"
         },
         {
           "name": "Nicolas Bayona",
@@ -219,7 +233,8 @@ window.SITE = {
             "en": "Cloud-native technical talk",
             "es": "Charla técnica cloud-native"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/nclsbayona.jpg"
         },
         {
           "name": "Luis Felipe Ariza Vesga",
@@ -228,9 +243,11 @@ window.SITE = {
             "en": "OpenStack evolution and its impact on open infrastructure",
             "es": "Evolución de OpenStack y su impacto en la infraestructura abierta"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/lfarizav.jpg"
         }
-      ]
+      ],
+      "photoUrl": "assets/events/evt-87.jpg"
     },
     {
       "id": "evt-3",
@@ -257,7 +274,8 @@ window.SITE = {
             "en": "Event introduction",
             "es": "Introducción al evento"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/daniel-jaramillo.jpg"
         },
         {
           "name": "Luis Felipe Ariza Vesga",
@@ -266,7 +284,8 @@ window.SITE = {
             "en": "Motivational talk and cellular network demonstration",
             "es": "Presentación motivacional y demostración de redes celulares"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/lfarizav.jpg"
         },
         {
           "name": "Javier Andrés Marroquín Barreto",
@@ -275,7 +294,8 @@ window.SITE = {
             "en": "OpenStack as an enabler for Network Function Virtualisation (NFV)",
             "es": "OpenStack como habilitador de la Virtualización de Funciones de Red (NFV)"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/javier-marroquin.jpg"
         },
         {
           "name": "Ivan Camargo",
@@ -284,7 +304,8 @@ window.SITE = {
             "en": "Cloud Native Architecture Evolution: Field Experiences",
             "es": "Evolución en la arquitectura Cloud Native: Experiencias de Campo"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/ivan-camargo.jpg"
         },
         {
           "name": "Angel Ramirez",
@@ -293,7 +314,8 @@ window.SITE = {
             "en": "From Zero to a Bare-Metal Kubernetes Cluster",
             "es": "De Cero a Crear un Clúster de Kubernetes en Baremetal"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/angel-ramirez.jpg"
         },
         {
           "name": "Diego Rueda Pepinoza",
@@ -302,7 +324,8 @@ window.SITE = {
             "en": "Open-source solutions for university-level mobile network education",
             "es": "Soluciones open-source para la enseñanza universitaria de redes móviles"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/diego-rueda.jpg"
         },
         {
           "name": "Mauricio Vargas",
@@ -311,9 +334,11 @@ window.SITE = {
             "en": "Implementation of a 5G network testbed",
             "es": "Implementación de un testbed para redes 5G"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/mauricio-vargas.jpg"
         }
-      ]
+      ],
+      "photoUrl": "assets/events/evt-3.jpg"
     },
     {
       "id": "evt-2",
@@ -340,7 +365,8 @@ window.SITE = {
             "en": "LTE-based 5G Terrestrial Broadcast project results (with IDTOLU)",
             "es": "Resultados del proyecto LTE-based 5G Terrestrial Broadcast (con IDTOLU)"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/juan-camilo-colorado.jpg"
         },
         {
           "name": "Juan Pablo Gutierrez",
@@ -349,7 +375,8 @@ window.SITE = {
             "en": "LTE-based 5G Terrestrial Broadcast project results (with IDTOLU)",
             "es": "Resultados del proyecto LTE-based 5G Terrestrial Broadcast (con IDTOLU)"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/juan-pablo-gutierrez.jpg"
         },
         {
           "name": "Alvaro Soto",
@@ -358,7 +385,8 @@ window.SITE = {
             "en": "Cloud computing and data sovereignty",
             "es": "Computación en la nube y soberanía de datos"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         },
         {
           "name": "Kendall Nelson",
@@ -367,7 +395,8 @@ window.SITE = {
             "en": "The 4 Opens methodology",
             "es": "La metodología de los 4 Opens"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/kendall-nelson.jpg"
         },
         {
           "name": "Juan Camilo Caviedez",
@@ -376,7 +405,8 @@ window.SITE = {
             "en": "Experience deploying LOKI tools",
             "es": "Experiencia desplegando herramientas LOKI"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/juan-camilo-caviedez.jpg"
         },
         {
           "name": "Jhonny Athortua",
@@ -385,7 +415,8 @@ window.SITE = {
             "en": "OpenStack deployment",
             "es": "Despliegue de OpenStack"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/jhonny-athortua.jpg"
         },
         {
           "name": "Eritson Julio",
@@ -394,7 +425,8 @@ window.SITE = {
             "en": "Cloud automation tools",
             "es": "Herramientas de automatización en la nube"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/eritson-julio.jpg"
         },
         {
           "name": "Cesar Perez",
@@ -403,9 +435,11 @@ window.SITE = {
             "en": "Cloud automation tools",
             "es": "Herramientas de automatización en la nube"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         }
-      ]
+      ],
+      "photoUrl": "assets/events/evt-2.jpg"
     },
     {
       "id": "evt-1",
@@ -432,7 +466,8 @@ window.SITE = {
             "en": "LXD & MAAS Microcloud: An Edge Alternative to OpenStack",
             "es": "Micronube de LXD y MAAS: Alternativa a OpenStack en el borde"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         },
         {
           "name": "Alvaro Soto",
@@ -441,7 +476,8 @@ window.SITE = {
             "en": "Tailoring LOKI for Telcos",
             "es": "Tailoring LOKI for Telcos"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         },
         {
           "name": "Cesar Perez",
@@ -450,7 +486,8 @@ window.SITE = {
             "en": "OpenStack API integration for ID:TOLÚ testbed operations",
             "es": "Integración de las APIs de OpenStack para la operación del testbed de ID:TOLÚ"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": null
         },
         {
           "name": "Eritson Julio",
@@ -459,7 +496,8 @@ window.SITE = {
             "en": "ID:TOLÚ cloud-native deployment with MAAS and OpenStack",
             "es": "Despliegue de la nube nativa de ID:TOLÚ usando MAAS y OpenStack"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/eritson-julio.jpg"
         },
         {
           "name": "Juan Carlos Otero",
@@ -468,9 +506,11 @@ window.SITE = {
             "en": "ID:TOLÚ cloud-native deployment with MAAS and OpenStack",
             "es": "Despliegue de la nube nativa de ID:TOLÚ usando MAAS y OpenStack"
           },
-          "slidesUrl": null
+          "slidesUrl": null,
+          "photoUrl": "assets/speakers/juan-carlos-otero.jpg"
         }
-      ]
+      ],
+      "photoUrl": "assets/events/evt-1.jpg"
     }
   ],
   "upcoming": [
@@ -505,7 +545,7 @@ window.SITE = {
       },
       "company": "Beanters · Colombia OpenInfra User Group",
       "titleJob": "Founder & Community Organizer",
-      "photoUrl": null,
+      "photoUrl": "assets/speakers/lfarizav.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/luis-felipe-ariza-vesga/",
       "githubUrl": "https://github.com/lfarizav",
       "twitterUrl": null,
