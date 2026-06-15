@@ -750,7 +750,7 @@ window.SITE = {
       "role": "volunteer",
       "name": "Saúl Andrés Menjura Ovalle",
       "bio": {},
-      "company": null,
+      "company": "Data Operations",
       "titleJob": null,
       "photoUrl": "assets/speakers/saul-menjura.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/saul-menjura/",
