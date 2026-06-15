@@ -707,7 +707,7 @@ window.SITE = {
       "bio": {},
       "company": "Universidad Javeriana",
       "titleJob": null,
-      "photoUrl": null,
+      "photoUrl": "assets/speakers/nicolas-ceron.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/nicoceron/",
       "githubUrl": null,
       "twitterUrl": null,
