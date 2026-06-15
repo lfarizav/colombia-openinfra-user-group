@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://lfarizav.github.io/colombia-openinfra-user-group/sitemap.xml
+Sitemap: https://beanters.com/colombia-openinfra-user-group/sitemap.xml

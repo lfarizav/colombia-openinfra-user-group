@@ -13,7 +13,7 @@ const STRINGS = {
     about:    { es: "Nosotros",       en: "About" },
     speakers: { es: "Ponentes",       en: "Speakers" },
     sponsors: { es: "Patrocinadores", en: "Sponsors" },
-    people:   { es: "Comunidad",      en: "Community" },
+    people:   { es: "Miembros",        en: "Members" },
     agents:   { es: "IA+Agentes",     en: "AI+Agents" }
   },
   hero: {
@@ -78,7 +78,11 @@ const STRINGS = {
     volunteer:  { es: "Voluntarios",         en: "Volunteers" },
     sponsor:    { es: "Patrocinadores",      en: "Sponsors" },
     mentor:     { es: "Mentores",            en: "Mentors" },
-    empty:      { es: "No hay perfiles en esta categoría.", en: "No profiles in this category." }
+    empty:        { es: "No hay perfiles en esta categoría.", en: "No profiles in this category." },
+    meetup_note:  { es: "La lista completa de 375+ miembros está en nuestro grupo de Meetup (privada por diseño de la plataforma). Aquí mostramos a quienes han optado por aparecer públicamente.", en: "The full list of 375+ members lives on our Meetup group (private by platform design). Here we show members who have opted in to be featured." },
+    view_meetup:  { es: "Ver todos en Meetup", en: "View all on Meetup" },
+    count_title:  { es: "Miembros de la comunidad", en: "Community members" },
+    featured_label: { es: "Miembros destacados", en: "Featured members" }
   },
   agents: {
     eyebrow:    { es: "IA & Agentes",  en: "AI & Agents" },
@@ -197,7 +201,7 @@ function Nav({ theme, toggleTheme, lang, setLang }) {
     { href: "#about",    label: t("nav.about", lang) },
     { href: "#events",   label: t("nav.events", lang) },
     { href: "#speakers", label: t("nav.speakers", lang) },
-    { href: "#people",   label: t("nav.people", lang) },
+    { href: "#members",  label: t("nav.people", lang) },
     { href: "#agents",   label: t("nav.agents", lang) },
     { href: "#sponsors", label: t("nav.sponsors", lang) }
   ];
@@ -217,28 +221,19 @@ function Nav({ theme, toggleTheme, lang, setLang }) {
       justifyContent: "space-between", height: "64px"
     }
   },
-    /* Logo */
+    /* Logo — uses the official brand SVG from assets/ */
     React.createElement("a", {
       href: "#",
       "aria-label": "Colombia OpenInfra User Group — inicio",
-      style: { display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }
+      style: { display: "flex", alignItems: "center", textDecoration: "none" }
     },
-      React.createElement("span", {
-        style: {
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3px",
-          width: 28, height: 28
-        }
-      },
-        ...["#ED362F","#43B85C","#2CB4E2","#F7B749"].map(c =>
-          React.createElement("span", {
-            key: c,
-            style: { background: c, borderRadius: "3px" }
-          })
-        )
-      ),
-      React.createElement("span", {
-        style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1rem", color: "var(--text)" }
-      }, "Colombia OpenInfra")
+      React.createElement("img", {
+        src: theme === "light"
+          ? "assets/OpenInfra-UserGroup-Black.svg"
+          : "assets/OpenInfra-UserGroup-White.svg",
+        alt: "Colombia OpenInfra User Group",
+        style: { height: "38px", width: "auto", display: "block" }
+      })
     ),
 
     /* Desktop links */
@@ -375,10 +370,11 @@ function Hero({ lang }) {
     }),
 
     React.createElement("div", {
-      className: "container",
-      style: { display: "grid", gridTemplateColumns: "1fr", gap: "3rem", alignItems: "center" }
+      className: "container hero-grid"
     },
-      React.createElement("div", { style: { maxWidth: 680, animation: "fadeUp 0.8s ease both" } },
+      /* Left column: headline + CTAs + stats */
+      React.createElement("div", null,
+      React.createElement("div", { style: { animation: "fadeUp 0.8s ease both" } },
         React.createElement("p", { className: "section-eyebrow" },
           React.createElement("span", { style: { display: "inline-flex", gap: 6 } },
             ["#ED362F","#43B85C","#2CB4E2","#F7B749"].map(c =>
@@ -440,6 +436,23 @@ function Hero({ lang }) {
             React.createElement("div", { style: { color: "var(--text-dim)", fontSize: "0.85rem" } }, stat.label)
           )
         )
+      )
+      ), /* closes left column wrapper */
+
+      /* Right column: official cover art (desktop only) */
+      React.createElement("div", {
+        className: "desktop-only",
+        style: { display: "flex", alignItems: "center", justifyContent: "center" }
+      },
+        React.createElement("img", {
+          src: "assets/Cover Website - 6.svg",
+          alt: "Colombia OpenInfra User Group — 5to Evento",
+          style: {
+            width: "100%", height: "auto", display: "block",
+            borderRadius: "var(--radius-lg)",
+            boxShadow: "0 12px 48px rgba(0,0,0,0.5)"
+          }
+        })
       )
     )
   );
@@ -510,10 +523,21 @@ function Events({ lang }) {
       onMouseOver: e => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "var(--shadow-card)"; },
       onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = featured ? "var(--shadow-card)" : "none"; }
     },
-      /* Color bar */
-      React.createElement("div", {
-        style: { height: 4, display: "flex" }
-      }, ...colorBars.map(c => React.createElement("div", { key: c, style: { flex: 1, background: c } }))),
+      /* Event image or color bar */
+      event.imageUrl
+        ? React.createElement("a", {
+            href: event.meetupUrl || "#", target: "_blank", rel: "noopener noreferrer",
+            style: { display: "block", overflow: "hidden" }
+          }, React.createElement("img", {
+            src: event.imageUrl, alt: bi(event.title, lang),
+            style: { width: "100%", height: featured ? "220px" : "160px", objectFit: "cover", display: "block",
+                     transition: "transform 0.3s", cursor: "pointer" },
+            onMouseOver: e => { e.currentTarget.style.transform = "scale(1.03)"; },
+            onMouseOut:  e => { e.currentTarget.style.transform = "scale(1)"; }
+          }))
+        : React.createElement("div", {
+            style: { height: 4, display: "flex" }
+          }, ...colorBars.map(c => React.createElement("div", { key: c, style: { flex: 1, background: c } }))),
       React.createElement("div", { style: { padding: "1.5rem 2rem 2rem" } },
         React.createElement("div", {
           style: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }
@@ -596,7 +620,7 @@ function Events({ lang }) {
       }, t("events.past", lang)),
       React.createElement("div", {
         style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }
-      }, ...past.map(e => React.createElement(EventCard, { key: e.id, event: e, featured: e.id === "evt-5" })))
+      }, ...past.map((e, i) => React.createElement(EventCard, { key: e.id, event: e, featured: i === 0 })))
     )
   );
 }
@@ -605,7 +629,7 @@ function Events({ lang }) {
 function Speakers({ lang }) {
   const ref = useRef(null);
   const visible = useIntersection(ref);
-  const latestEvent = S.events.find(e => e.id === "evt-5");
+  const latestEvent = S.events.filter(e => !e.upcoming).sort((a, b) => b.date.localeCompare(a.date))[0];
   const speakers = latestEvent?.speakers || [];
   const colors = ["#ED362F","#43B85C","#2CB4E2","#F7B749","#ED362F","#43B85C"];
 
@@ -707,7 +731,7 @@ function People({ lang }) {
   const filtered = activeRole === "all" ? allPeople : allPeople.filter(p => p.role === activeRole);
 
   return React.createElement("section", {
-    id: "people", ref,
+    id: "members", ref,
     style: {
       opacity: visible ? 1 : 0,
       transform: visible ? "none" : "translateY(24px)",
@@ -720,6 +744,57 @@ function People({ lang }) {
       React.createElement("p", {
         style: { color: "var(--text-mid)", marginBottom: "2rem", maxWidth: 600, lineHeight: 1.7 }
       }, t("people.sub", lang)),
+
+      /* Member count stats */
+      React.createElement("div", {
+        style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }
+      },
+        [
+          { num: S.group.members + "+", label: t("people.count_title", lang),  color: "#ED362F" },
+          { num: S.group.events,        label: t("stats.events", lang),          color: "#43B85C" },
+          { num: S.group.city,          label: t("stats.city", lang),            color: "#2CB4E2" },
+          { num: S.group.founded,       label: t("stats.since", lang),           color: "#F7B749" }
+        ].map(stat =>
+          React.createElement("div", {
+            key: stat.label,
+            style: {
+              background: "var(--surface)", border: "1px solid var(--border)",
+              borderRadius: "var(--radius-md)", padding: "1rem 1.25rem",
+              borderLeft: `3px solid ${stat.color}`
+            }
+          },
+            React.createElement("div", {
+              style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.6rem", color: "var(--text)" }
+            }, stat.num),
+            React.createElement("div", { style: { color: "var(--text-dim)", fontSize: "0.8rem" } }, stat.label)
+          )
+        )
+      ),
+
+      /* Meetup note + link */
+      React.createElement("div", {
+        style: {
+          background: "var(--surface)", border: "1px solid var(--border)",
+          borderRadius: "var(--radius-md)", padding: "1rem 1.25rem",
+          display: "flex", alignItems: "flex-start", justifyContent: "space-between",
+          flexWrap: "wrap", gap: "0.75rem", marginBottom: "2.5rem",
+          borderLeft: "3px solid #2CB4E2"
+        }
+      },
+        React.createElement("p", {
+          style: { color: "var(--text-mid)", fontSize: "0.88rem", lineHeight: 1.5, margin: 0, maxWidth: 600 }
+        }, t("people.meetup_note", lang)),
+        React.createElement("a", {
+          href: S.socials.meetup, target: "_blank", rel: "noopener noreferrer",
+          className: "btn btn-ghost",
+          style: { fontSize: "0.82rem", padding: "0.35rem 0.9rem", flexShrink: 0 }
+        }, t("people.view_meetup", lang), " ", React.createElement(Icon, { name: "external", size: 13 }))
+      ),
+
+      /* Featured label */
+      React.createElement("p", {
+        style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "0.85rem", color: "var(--text-mid)", marginBottom: "1.5rem", textTransform: "uppercase", letterSpacing: "0.06em" }
+      }, t("people.featured_label", lang)),
 
       /* Role filter tabs */
       React.createElement("div", {
@@ -843,32 +918,32 @@ function Agents({ lang }) {
 
   const layers = [
     {
-      icon: "robot", color: "#F7B749",
+      icon: "robot", logo: null, color: "#F7B749",
       name: { es: "Agentes de IA", en: "AI Agents" },
       desc: { es: "LLMs, frameworks agénticos, pipelines de razonamiento y acción autónoma.", en: "LLMs, agentic frameworks, reasoning pipelines and autonomous action." }
     },
     {
-      icon: "k8s", color: "#2CB4E2",
+      icon: "k8s", logo: "assets/logos/kubernetes.svg", color: "#2CB4E2",
       name: { es: "Kubernetes — Orquestación", en: "Kubernetes — Orchestration" },
       desc: { es: "Programa, escala y monitoriza las cargas de trabajo de los agentes en clústeres híbridos.", en: "Schedule, scale, and health-monitor agent workloads across hybrid clusters." }
     },
     {
-      icon: "cpu", color: "#43B85C",
+      icon: "cpu", logo: "assets/logos/openstack.svg", color: "#ED362F",
       name: { es: "OpenStack — Cómputo", en: "OpenStack — Compute" },
       desc: { es: "Recursos de CPU/GPU declarativos para entrenamiento e inferencia distribuida a escala cloud.", en: "Declarative CPU/GPU resources for distributed training and inference at cloud scale." }
     },
     {
-      icon: "shield", color: "#ED362F",
+      icon: "shield", logo: "assets/logos/kata.png", color: "#ED362F",
       name: { es: "Kata Containers — Sandbox Seguro", en: "Kata Containers — Secure Sandbox" },
       desc: { es: "Aislamiento a nivel VM para código generado por agentes — sin compartir kernel.", en: "VM-level isolation for agent-generated code execution — no shared kernel." }
     },
     {
-      icon: "branch", color: "#43B85C",
+      icon: "branch", logo: "assets/logos/zuul.png", color: "#43B85C",
       name: { es: "Zuul — CI/CD para ML", en: "Zuul — CI/CD for ML" },
       desc: { es: "Pipelines de prueba multi-nodo y gating para código generado por agentes y experimentos de ML.", en: "Multi-node test pipelines and gating for agent-generated code and ML experiments." }
     },
     {
-      icon: "network", color: "#2CB4E2",
+      icon: "network", logo: "assets/logos/starlingx.svg", color: "#2CB4E2",
       name: { es: "StarlingX — Edge AI", en: "StarlingX — Edge AI" },
       desc: { es: "Inferencia de ultra-baja latencia en hardware de borde, estaciones 5G e IoT industrial.", en: "Ultra-low-latency inference on edge hardware, 5G base stations, and industrial IoT." }
     }
@@ -945,7 +1020,10 @@ function Agents({ lang }) {
                   width: 36, height: 36, borderRadius: "8px",
                   background: layer.color + "18", flexShrink: 0
                 }
-              }, React.createElement(Icon, { name: layer.icon, size: 18, color: layer.color })),
+              }, layer.logo
+                ? React.createElement("img", { src: layer.logo, alt: layer.name.en, style: { width: 22, height: 22, objectFit: "contain" } })
+                : React.createElement(Icon, { name: layer.icon, size: 18, color: layer.color })
+              ),
               React.createElement("p", {
                 style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "0.9rem", color: "var(--text)", lineHeight: 1.3 }
               }, bi(layer.name, lang))
@@ -1097,7 +1175,10 @@ function Sponsors({ lang }) {
             onMouseOver: e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "var(--shadow-pop)"; },
             onMouseOut:  e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }
           },
-            React.createElement(Icon, { name: "k8s", size: 28, color: "#ED362F" }),
+            (s.logoUrl
+              ? React.createElement("img", { src: s.logoUrl, alt: s.name, style: { height: 48, maxWidth: 160, objectFit: "contain" } })
+              : React.createElement(Icon, { name: "k8s", size: 28, color: "#ED362F" })
+            ),
             React.createElement("span", {
               style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1rem", color: "var(--text)" }
             }, s.name),
@@ -1112,7 +1193,7 @@ function Sponsors({ lang }) {
 }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
-function Footer({ lang }) {
+function Footer({ lang, theme }) {
   const year = new Date().getFullYear();
   return React.createElement("footer", {
     style: {
@@ -1121,15 +1202,16 @@ function Footer({ lang }) {
     }
   },
     React.createElement("div", { className: "container" },
-      /* Logo mark */
-      React.createElement("div", {
-        style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", width: 32, height: 32, margin: "0 auto 1rem" }
-      }, ...["#ED362F","#43B85C","#2CB4E2","#F7B749"].map(c =>
-        React.createElement("div", { key: c, style: { background: c, borderRadius: "3px" } })
-      )),
-      React.createElement("p", {
-        style: { fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "0.5rem" }
-      }, S.group.name),
+      /* Official brand logo */
+      React.createElement("div", { style: { margin: "0 auto 1.25rem", textAlign: "center" } },
+        React.createElement("img", {
+          src: theme === "light"
+            ? "assets/OpenInfra-UserGroup-Black.svg"
+            : "assets/OpenInfra-UserGroup-White.svg",
+          alt: "Colombia OpenInfra User Group",
+          style: { height: "52px", width: "auto", display: "inline-block" }
+        })
+      ),
       React.createElement("p", {
         style: { color: "var(--text-dim)", fontSize: "0.9rem", marginBottom: "1.5rem" }
       }, t("footer.tagline", lang)),
@@ -1186,7 +1268,7 @@ function App() {
     React.createElement(Agents, { lang }),
     React.createElement(Join, { lang }),
     React.createElement(Sponsors, { lang }),
-    React.createElement(Footer, { lang })
+    React.createElement(Footer, { lang, theme })
   );
 }
 
