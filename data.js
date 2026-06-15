@@ -731,6 +731,21 @@ window.SITE = {
       "featured": false
     },
     {
+      "id": 52,
+      "role": "volunteer",
+      "name": "Carlos Arturo Quiroga",
+      "bio": {},
+      "company": "SOAINT",
+      "titleJob": null,
+      "photoUrl": "assets/speakers/carlos-quiroga.jpg",
+      "linkedinUrl": "https://www.linkedin.com/in/carlosarturoq/",
+      "githubUrl": null,
+      "twitterUrl": null,
+      "websiteUrl": null,
+      "talks": [],
+      "featured": false
+    },
+    {
       "id": 48,
       "role": "volunteer",
       "name": "Saúl Andrés Menjura Ovalle",
